@@ -18,6 +18,10 @@ import { router } from "./router";
         <router-link class="nav-link" :to="{ name: 'authors.overview' }"
             >Authors Overview</router-link
         >
+        <br />
+        <router-link class="nav-link" :to="{ name: 'authors.create' }"
+            >Add a new Author</router-link
+        >
     </nav>
     <br />
     <router-view></router-view>

@@ -19,10 +19,10 @@ const handleSubmit = () => emit("submit", form.value);
         <label>Titel:</label>
         <input v-model="form.title" type="text" required />
 
-        <label>Samenvatting:</label>
+        <label>Description:</label>
         <textarea v-model="form.description" required></textarea>
 
-        <label>Auteur:</label>
+        <label>Author:</label>
         <select v-model="form.author_id" required>
             <option
                 v-for="author in getAllAuthors"
@@ -33,7 +33,7 @@ const handleSubmit = () => emit("submit", form.value);
             </option>
         </select>
 
-        <button type="submit">Opslaan</button>
+        <button type="submit">Submit</button>
     </form>
 </template>
 <style scoped>
