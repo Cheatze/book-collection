@@ -19,4 +19,24 @@ class AuthorController extends Controller
         $authors = Author::all();
         return AuthorResource::collection($authors);
     }
+
+    public function update(StoreAuthorRequest $request, Author $author) {
+        
+        $author->update($request->validated());
+
+        $authors = Author::all();
+        return AuthorResource::collection($authors);
+    }
+
+    public function destroy(Author $author) {
+        if ($author->books()->count() > 0) {
+            return response()->json([
+                'message' => 'Cannot delete author because they have books associated with them.',
+                'error' => 'author_has_books'
+            ], 422); // 422 Unprocessable Entity
+        }
+
+        $author->delete();
+        return response()->json(['message' => 'Auteur succesvol verwijderd']);
+    }
 }
