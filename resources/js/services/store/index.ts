@@ -1,5 +1,5 @@
 import { ref, computed } from "vue";
-import { getRequest, postRequest } from "../http";
+import { getRequest, postRequest, putRequest, deleteRequest } from "../http";
 
 export const storeModuleFactory = (moduleName) => {
     const state = ref({});

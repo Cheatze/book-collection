@@ -1,3 +1,5 @@
+import { storeModuleFactory } from "../../services/store";
+
 import axios from "axios";
 import { ref, computed } from "vue";
 import {
@@ -7,11 +9,7 @@ import {
     deleteRequest,
 } from "../../services/http";
 
-// type Book = {
-//     id: number;
-//     title: string;
-//     description: string;
-// };
+const booksStore = storeModuleFactory("books");
 
 export type Book = {
     id: number;
@@ -20,35 +18,45 @@ export type Book = {
     author_id: number | null;
 };
 
-// state
-const books = ref<Book[]>([]);
+// Export getters
+export const getAllBooks = booksStore.getters.all;
+export const getBookById = booksStore.getters.getById;
 
-// getters
-export const getAllBooks = computed(() => books.value);
+// Export actions
+export const fetchBooks = booksStore.actions.getAll;
+export const createBook = booksStore.actions.create;
+export const updateBook = booksStore.actions.update;
+export const deleteBook = booksStore.actions.delete;
 
-export const getBookById = (id: number) =>
-    computed(() => books.value.find((book) => book.id == id));
+// // state
+// const books = ref<Book[]>([]);
 
-// actions
-export const fetchBooks = async () => {
-    const { data } = await getRequest("/books");
-    if (!data) return;
-    books.value = data;
-};
+// // getters
+// export const getAllBooks = computed(() => books.value);
 
-export const createBook = async (newBook: Omit<Book, "id">) => {
-    const { data } = await postRequest("/books", newBook);
-    if (!data) return;
-    books.value = data;
-};
+// export const getBookById = (id: number) =>
+//     computed(() => books.value.find((book) => book.id == id));
 
-export const updateBook = async (id: number, updatedBook: Omit<Book, "id">) => {
-    const { data } = await putRequest(`/books/${id}`, updatedBook);
-    if (!data) return;
-    books.value = data;
-};
+// // actions
+// export const fetchBooks = async () => {
+//     const { data } = await getRequest("/books");
+//     if (!data) return;
+//     books.value = data;
+// };
 
-export const deleteBook = async (id: number) => {
-    await deleteRequest(`/books/${id}`);
-    books.value = books.value.filter((book) => book.id !== id);
-};
+// export const createBook = async (newBook: Omit<Book, "id">) => {
+//     const { data } = await postRequest("/books", newBook);
+//     if (!data) return;
+//     books.value = data;
+// };
+
+// export const updateBook = async (id: number, updatedBook: Omit<Book, "id">) => {
+//     const { data } = await putRequest(`/books/${id}`, updatedBook);
+//     if (!data) return;
+//     books.value = data;
+// };
+
+// export const deleteBook = async (id: number) => {
+//     await deleteRequest(`/books/${id}`);
+//     books.value = books.value.filter((book) => book.id !== id);
+// };
