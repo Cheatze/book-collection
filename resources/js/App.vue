@@ -12,7 +12,7 @@ import { router } from "./router";
         >
         <br />
         <router-link class="nav-link" :to="{ name: 'books.create' }"
-            >Create Book</router-link
+            >Add a new Book</router-link
         >
         <br />
         <router-link class="nav-link" :to="{ name: 'authors.overview' }"

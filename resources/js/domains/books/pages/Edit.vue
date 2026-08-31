@@ -1,6 +1,24 @@
+<script setup lang="ts">
+import { ref, onMounted, computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import Form from "../components/Form.vue";
+import { fetchBooks, getBookById, updateBook, Book } from "../store";
+
+const route = useRoute();
+const router = useRouter();
+
+fetchBooks();
+
+const book = getBookById(Number(route.params.id));
+
+const handleSubmit = async (data: Omit<Book, "id">) => {
+    await updateBook(Number(route.params.id), data);
+    router.push({ name: "books.overview" });
+};
+</script>
 <template>
     <div>
         <h1>Edit Book</h1>
-        <p>This is the edit page for the books domain.</p>
+        <Form v-if="book" :book="book" @submit="handleSubmit" />
     </div>
 </template>

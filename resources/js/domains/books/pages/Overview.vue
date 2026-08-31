@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted } from "vue";
 import { fetchBooks, getAllBooks } from "../store";
 
@@ -17,6 +17,12 @@ fetchBooks();
         <tr v-for="book in getAllBooks" :key="book.id">
             <td>{{ book.title }}</td>
             <td>{{ book.description }}</td>
+            <td id="edit-link">
+                <router-link
+                    :to="{ name: 'books.edit', params: { id: book.id } }"
+                    >Edit</router-link
+                >
+            </td>
         </tr>
     </table>
 </template>
@@ -25,5 +31,13 @@ table {
     width: 25%;
     border-collapse: collapse;
     border: 1px solid #ddd;
+}
+td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+#edit-link {
+    text-align: center;
+    color: blue;
 }
 </style>
