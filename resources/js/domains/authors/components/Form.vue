@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import FormError from "./FormError.vue";
+import ErrorMessage from "./ErrorMessage.vue";
 
 const props = defineProps({ author: Object });
 
@@ -10,10 +12,12 @@ const form = ref({ ...props.author });
 const handleSubmit = () => emit("submit", form.value);
 </script>
 <template>
+    <ErrorMessage />
     <form @submit.prevent="handleSubmit">
         <div>
             <label for="name">Name:</label>
             <input id="name" v-model="form.name" />
+            <FormError name="name" />
         </div>
         <button type="submit">Submit</button>
     </form>

@@ -19,9 +19,6 @@ const book = ref({
 // };
 
 const handleSubmit = async (data: Omit<Book, "id">) => {
-    alert(
-        `Book created: ${data.title} by author ID ${data.author_id} with description: ${data.description}`,
-    );
     await createBook(data);
     router.push({ name: "books.overview" });
 };

@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from "vue";
 import { fetchAuthors, getAllAuthors, deleteAuthor } from "../store";
+import ErrorMessage from "../../authors/components/ErrorMessage.vue";
 
 fetchAuthors();
 </script>
@@ -9,6 +10,7 @@ fetchAuthors();
         <h1>Author Overview</h1>
         <p>This is the overview page for the authors domain.</p>
     </div>
+    <ErrorMessage />
     <table>
         <tr>
             <th>Name</th>

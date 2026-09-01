@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAuthorRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\AuthorResource;
 use App\Models\Author;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthorController extends Controller
 {
@@ -29,11 +30,10 @@ class AuthorController extends Controller
     }
 
     public function destroy(Author $author) {
-        if ($author->books()->count() > 0) {
-            return response()->json([
-                'message' => 'Cannot delete author because they have books associated with them.',
-                'error' => 'author_has_books'
-            ], 422); // 422 Unprocessable Entity
+        if ($author->books()->exists()) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Deze auteur kan niet worden verwijderd omdat er nog boeken aan gekoppeld zijn.'
+            ], 422));
         }
 
         $author->delete();
